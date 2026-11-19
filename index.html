@@ -3,9 +3,11 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Stock V5 - Stock OH & Laporan Store</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.4/jspdf.plugin.autotable.min.js"></script>
 <style>
 :root{--blue:#1539dc;--bg:#f3f5fa;--ink:#172033;--muted:#667085;--line:#e2e7f0;--green:#128a55;--red:#c0392b;--amber:#a66b00}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Arial,Inter,sans-serif;color:var(--ink)}.app{max-width:1500px;margin:auto;padding:18px}.head{background:linear-gradient(120deg,#132bb9,#4169f5);color:white;padding:22px;border-radius:16px}.head h1{margin:0 0 6px;font-size:24px}.head p{margin:0;opacity:.9}.layout{display:grid;grid-template-columns:230px minmax(0,1fr);gap:16px;margin-top:16px}.side,.panel{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;box-shadow:0 4px 18px #10204008}.side h3{font-size:12px;color:var(--muted);margin:4px 8px 10px}.nav{display:flex;flex-direction:column;gap:7px}.nav button{border:0;background:#f0f3fa;color:#243047;text-align:left;padding:13px;border-radius:9px;font-weight:700;cursor:pointer}.nav button.active{background:var(--blue);color:white}.content{min-width:0}.toolbar{display:flex;gap:10px;align-items:end;flex-wrap:wrap}.field{display:flex;flex-direction:column;gap:6px}.field label{font-size:12px;font-weight:700;color:var(--muted)}input,textarea,select{font:inherit;border:1px solid #d4dbe8;border-radius:9px;padding:11px 12px;background:white;min-width:0}input[type=date]{min-width:190px}textarea{width:100%;min-height:85px;resize:vertical}button{border:0;border-radius:9px;padding:11px 15px;font-weight:700;cursor:pointer}.primary{background:var(--blue);color:white}.secondary{background:#edf0f6;color:#273247}.save{background:var(--green);color:white}.danger{background:#fff0ef;color:#b42318}.safe{background:#128a55;color:white}.status{margin:12px 0;color:var(--muted);font-size:13px}.summary{display:flex;gap:9px;flex-wrap:wrap;margin:12px 0}.pill{background:#eff2f8;padding:8px 12px;border-radius:9px;font-size:13px}.tablewrap{overflow:auto;margin-top:12px}table{border-collapse:collapse;width:100%;min-width:760px}th,td{padding:11px 10px;border-bottom:1px solid var(--line);font-size:14px}th{background:#eff2f8;color:#3b465a;text-transform:uppercase;font-size:12px;position:sticky;top:0;z-index:2;text-align:left}td.num{text-align:right;font-variant-numeric:tabular-nums}.ohinput{width:110px;text-align:right;padding:8px}.positive{color:var(--green);font-weight:700}.negative{color:var(--red);font-weight:700}.hidden{display:none!important}.formgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.formgrid .full{grid-column:1/-1}.photo-actions{display:flex;gap:10px;flex-wrap:wrap}.photo-preview{max-width:220px;max-height:180px;display:block;margin-top:10px;border-radius:10px;border:1px solid var(--line)}.form-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.note{background:#f4f7ff;border:1px solid #dce5ff;padding:12px;border-radius:10px;color:#35446a;font-size:13px}.empty{text-align:center;color:var(--muted);padding:24px}@media(max-width:850px){.layout{grid-template-columns:1fr}.nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.formgrid{grid-template-columns:1fr}.app{padding:10px}.head{padding:18px}.head h1{font-size:20px}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Arial,Inter,sans-serif;color:var(--ink)}.app{max-width:1500px;margin:auto;padding:18px}.head{background:linear-gradient(120deg,#132bb9,#4169f5);color:white;padding:22px;border-radius:16px}.head h1{margin:0 0 6px;font-size:24px}.head p{margin:0;opacity:.9}.layout{display:grid;grid-template-columns:230px minmax(0,1fr);gap:16px;margin-top:16px}.side,.panel{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;box-shadow:0 4px 18px #10204008}.side h3{font-size:12px;color:var(--muted);margin:4px 8px 10px}.nav{display:flex;flex-direction:column;gap:7px}.nav button{border:0;background:#f0f3fa;color:#243047;text-align:left;padding:13px;border-radius:9px;font-weight:700;cursor:pointer}.nav button.active{background:var(--blue);color:white}.content{min-width:0}.toolbar{display:flex;gap:10px;align-items:end;flex-wrap:wrap}.field{display:flex;flex-direction:column;gap:6px}.field label{font-size:12px;font-weight:700;color:var(--muted)}input,textarea,select{font:inherit;border:1px solid #d4dbe8;border-radius:9px;padding:11px 12px;background:white;min-width:0}input[type=date]{min-width:190px}textarea{width:100%;min-height:85px;resize:vertical}button{border:0;border-radius:9px;padding:11px 15px;font-weight:700;cursor:pointer}.primary{background:var(--blue);color:white}.secondary{background:#edf0f6;color:#273247}.save{background:var(--green);color:white}.danger{background:#fff0ef;color:#b42318}.safe{background:#128a55;color:white}.status{margin:12px 0;color:var(--muted);font-size:13px}.summary{display:flex;gap:9px;flex-wrap:wrap;margin:12px 0}.pill{background:#eff2f8;padding:8px 12px;border-radius:9px;font-size:13px}.tablewrap{overflow:auto;margin-top:12px}table{border-collapse:collapse;width:100%;min-width:760px}th,td{padding:11px 10px;border-bottom:1px solid var(--line);font-size:14px}th{background:#eff2f8;color:#3b465a;text-transform:uppercase;font-size:12px;position:sticky;top:0;z-index:2;text-align:left}td.num{text-align:right;font-variant-numeric:tabular-nums}.ohinput{width:110px;text-align:right;padding:8px}.positive{color:var(--green);font-weight:700}.negative{color:var(--red);font-weight:700}.hidden{display:none!important}.formgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.formgrid .full{grid-column:1/-1}.photo-actions{display:flex;gap:10px;flex-wrap:wrap}.photo-preview{max-width:220px;max-height:180px;display:block;margin-top:10px;border-radius:10px;border:1px solid var(--line)}.form-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.note{background:#f4f7ff;border:1px solid #dce5ff;padding:12px;border-radius:10px;color:#35446a;font-size:13px}.empty{text-align:center;color:var(--muted);padding:24px}.pdfhint{font-size:12px;color:var(--muted);margin-top:8px}@media(max-width:850px){.layout{grid-template-columns:1fr}.nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.formgrid{grid-template-columns:1fr}.app{padding:10px}.head{padding:18px}.head h1{font-size:20px}}
 </style></head>
 <body><main class="app">
 <header class="head"><h1>STOCK V5 - OPERASIONAL STORE</h1><p>Input Stock OH, report komplain customer, dan barang ketinggalan</p></header>
@@ -15,7 +17,7 @@
 </nav></aside>
 <section class="content">
 <div id="stockPage" class="panel">
-<div class="toolbar"><div class="field"><label for="stockDate">TANGGAL INPUT</label><input type="date" id="stockDate"></div><button class="primary" id="loadStock">Tampilkan Data</button><button class="secondary" id="reloadStock">Muat Ulang</button></div>
+<div class="toolbar"><div class="field"><label for="stockDate">TANGGAL INPUT</label><input type="date" id="stockDate"></div><button class="primary" id="loadStock">Tampilkan Data</button><button class="secondary" id="reloadStock">Muat Ulang</button><button class="secondary" id="exportPdf">Export PDF</button></div>
 <div id="stockStatus" class="status">Pilih tanggal untuk menampilkan data.</div><div class="summary" id="summary"></div>
 <div class="tablewrap"><table><thead><tr><th>Kode</th><th>Nama Barang</th><th>Satuan</th><th>Akhir</th><th>OH</th><th>Selisih</th><th>Aksi</th></tr></thead><tbody id="stockRows"><tr><td colspan="7" class="empty">Belum ada data.</td></tr></tbody></table></div>
 </div>
@@ -44,10 +46,83 @@ function setStockStatus(t){$('stockStatus').textContent=t}
 function renderStock(){let filled=0,minus=0,plus=0;const body=$('stockRows');body.innerHTML='';items.forEach((it,i)=>{if(it.oh!==null&&it.oh!==undefined&&it.oh!=='')filled++;if(Number(it.selisih)<0)minus++;if(Number(it.selisih)>0)plus++;const tr=document.createElement('tr');tr.innerHTML=`<td>${esc(it.kode)}</td><td><b>${esc(it.nama)}</b></td><td>${esc(it.satuan)}</td><td class="num">${fmt(it.akhir)}</td><td class="num"><input class="ohinput" id="oh-${i}" type="number" min="0" step="any" value="${it.oh??''}" placeholder="Input OH"></td><td class="num ${it.selisih<0?'negative':it.selisih>0?'positive':''}">${fmt(it.selisih)}</td><td><button class="save" data-save="${i}">Simpan</button>${it.oh!==null&&it.oh!==undefined&&it.oh!==''?` <button class="danger" data-del="${i}">Hapus</button>`:''}</td>`;body.appendChild(tr)});if(!items.length)body.innerHTML='<tr><td colspan="7" class="empty">Belum ada daftar item. Periksa sheet sumber.</td></tr>';$('summary').innerHTML=`<span class="pill">Total item: <b>${items.length}</b></span><span class="pill">Sudah input: <b>${filled}</b></span><span class="pill">Selisih minus: <b>${minus}</b></span><span class="pill">Selisih plus: <b>${plus}</b></span>`}
 async function loadStock(){const date=$('stockDate').value;if(!date)return setStockStatus('Pilih tanggal terlebih dahulu.');setStockStatus('Memuat data tanggal '+date+'...');try{const r=await api('getStockOhWeb',{type:page,date});items=r.items||[];renderStock();setStockStatus(`${page}: ${items.length} item untuk ${date}. Data OH pada tanggal terpilih ditampilkan untuk input maupun koreksi.`)}catch(e){setStockStatus('Gagal: '+e.message)}}
 async function saveOH(i,clear=false){const it=items[i],value=clear?'':$('oh-'+i).value;if(!clear&&String(value).trim()==='')return alert('Isi angka OH atau gunakan tombol Hapus.');if(clear&&!confirm(`Hapus OH ${it.kode} pada tanggal ${$('stockDate').value}?`))return;try{const r=await api('saveStockOhWeb',{type:page,date:$('stockDate').value,kode:it.kode,value});setStockStatus(r.message);await loadStock()}catch(e){alert(e.message)}}
+
+async function exportStockPdf(){
+  if(!items.length){alert('Tidak ada data untuk diexport. Tampilkan data terlebih dahulu.');return}
+  if(!window.jspdf || !window.jspdf.jsPDF){alert('Library PDF belum berhasil dimuat. Periksa koneksi internet lalu coba lagi.');return}
+  const date=$('stockDate').value;
+  if(!date){alert('Pilih tanggal terlebih dahulu.');return}
+  const btn=$('exportPdf');
+  btn.disabled=true;btn.textContent='Membuat PDF...';
+  try{
+    const {jsPDF}=window.jspdf;
+    const doc=new jsPDF({orientation:'landscape',unit:'mm',format:'a4'});
+    const title=page==='TPL'?'STOCK OH TPL':'STOCK NONFOOD';
+    const dateText=date.split('-').reverse().join('/');
+    doc.setFont('helvetica','bold');doc.setFontSize(16);
+    doc.text(title,14,16);
+    doc.setFont('helvetica','normal');doc.setFontSize(10);
+    doc.text('Tanggal: '+dateText,14,23);
+    const filled=items.filter(x=>x.oh!==null&&x.oh!==undefined&&x.oh!=='').length;
+    const minus=items.filter(x=>Number(x.selisih)<0).length;
+    const plus=items.filter(x=>Number(x.selisih)>0).length;
+    doc.text('Total item: '+items.length+'   |   Sudah input: '+filled+'   |   Selisih minus: '+minus+'   |   Selisih plus: '+plus,14,30);
+    const rows=items.map(it=>[
+      String(it.kode??''),
+      String(it.nama??''),
+      String(it.satuan??''),
+      it.akhir===null||it.akhir===undefined?'—':fmt(it.akhir),
+      it.oh===null||it.oh===undefined||it.oh===''?'—':fmt(it.oh),
+      it.selisih===null||it.selisih===undefined?'—':fmt(it.selisih)
+    ]);
+    doc.autoTable({
+      startY:36,
+      head:[['KODE','NAMA BARANG','SATUAN','AKHIR','OH','SELISIH']],
+      body:rows,
+      theme:'grid',
+      styles:{font:'helvetica',fontSize:8,cellPadding:2.2, textColor:[30,41,59], lineColor:[210,216,226], lineWidth:.15},
+      headStyles:{fillColor:[31,78,121],textColor:[255,255,255],fontStyle:'bold',halign:'center'},
+      columnStyles:{0:{cellWidth:25,halign:'center'},1:{cellWidth:95},2:{cellWidth:25,halign:'center'},3:{cellWidth:28,halign:'right'},4:{cellWidth:28,halign:'right'},5:{cellWidth:28,halign:'right'}},
+      didParseCell:function(data){
+        if(data.section==='body' && data.column.index===5){
+          const raw=items[data.row.index]?.selisih;
+          if(Number(raw)<0)data.cell.styles.textColor=[192,57,43];
+          else if(Number(raw)>0)data.cell.styles.textColor=[18,138,85];
+        }
+      },
+      margin:{left:14,right:14}
+    });
+    const pageCount=doc.internal.getNumberOfPages();
+    for(let p=1;p<=pageCount;p++){
+      doc.setPage(p);doc.setFontSize(8);doc.setTextColor(110);
+      doc.text('STOCK V5 - '+title+' | '+dateText,14,doc.internal.pageSize.getHeight()-7);
+      doc.text(p+' / '+pageCount,doc.internal.pageSize.getWidth()-14,doc.internal.pageSize.getHeight()-7,{align:'right'});
+    }
+    const filename='StockV5_'+title.replace(/\s+/g,'_')+'_'+date+'.pdf';
+    const blob=doc.output('blob');
+    const file=new File([blob],filename,{type:'application/pdf'});
+    if(navigator.share && navigator.canShare && navigator.canShare({files:[file]})){
+      await navigator.share({title:title+' '+dateText,text:'Laporan '+title+' tanggal '+dateText,file:undefined,files:[file]});
+      setStockStatus('PDF berhasil dibagikan melalui menu berbagi perangkat.');
+    }else{
+      doc.save(filename);
+      setStockStatus('PDF berhasil dibuat dan diunduh. Kamu bisa membagikannya melalui aplikasi pilihan dari perangkat.');
+    }
+  }catch(e){
+    if(e && e.name==='AbortError'){
+      setStockStatus('Berbagi PDF dibatalkan.');
+    }else{
+      alert('Gagal membuat atau membagikan PDF: '+(e.message||e));
+    }
+  }finally{
+    btn.disabled=false;btn.textContent='Export PDF';
+  }
+}
+
 function switchPage(p){page=p;document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===p));const isStock=p==='TPL'||p==='NONFOOD';$('stockPage').classList.toggle('hidden',!isStock);$('reportPage').classList.toggle('hidden',isStock);if(isStock){loadStock()}else{const comp=p==='COMPLAINT';$('reportTitle').textContent=comp?'Report Komplain Customer':'Barang Ketinggalan';$('detailLabel').textContent=comp?'JENIS KOMPLAIN':'JENIS BARANG KETINGGALAN';$('detail').placeholder=comp?'Tuliskan jenis komplain':'Tuliskan nama/jenis barang';$('reportDate').value=$('stockDate').value||today();resetForm()}}
 function resetForm(){photoFile=null;$('reportForm').reset();$('photoPreview').src='';$('photoPreview').classList.add('hidden');$('reportStatus').textContent=''}
 function readFile(file){if(!file)return; if(file.size>7*1024*1024){alert('Ukuran foto maksimal 7 MB.');return}photoFile=file;const u=URL.createObjectURL(file);$('photoPreview').src=u;$('photoPreview').classList.remove('hidden')}
 function fileToBase64(file){return new Promise((resolve,reject)=>{const r=new FileReader();r.onload=()=>resolve(String(r.result).split(',')[1]);r.onerror=reject;r.readAsDataURL(file)})}
 async function postReport(status){const type=page==='COMPLAINT'?'COMPLAINT':'LEFT';const payload={type,date:$('reportDate').value,status,tableNo:$('tableNo').value.trim(),detail:$('detail').value.trim(),note:$('note').value.trim()};if(!payload.date)return alert('Tanggal laporan wajib dipilih.');if(status!=='AMAN'&&(!payload.tableNo||!payload.detail))return alert('Nomor meja dan jenis laporan wajib diisi.');if(photoFile){payload.photoBase64=await fileToBase64(photoFile);payload.photoMime=photoFile.type||'image/jpeg'}$('submitReport').disabled=true;$('safeBtn').disabled=true;$('reportStatus').textContent='Mengirim laporan dan menyimpan foto...';try{const response=await fetch(API_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)});const result=await response.json();if(!result.ok)throw new Error(result.error||'Gagal menyimpan laporan');$('reportStatus').textContent=result.data.message+(result.data.photoUrl?' Foto tersimpan di Google Drive.':'');resetForm()}catch(e){$('reportStatus').textContent='Gagal menyimpan: '+e.message+' Pastikan backend sudah di-deploy ulang dan izin akses sudah diberikan.'}finally{$('submitReport').disabled=false;$('safeBtn').disabled=false}}
-document.querySelectorAll('.nav button').forEach(b=>b.addEventListener('click',()=>switchPage(b.dataset.page)));$('loadStock').onclick=loadStock;$('reloadStock').onclick=loadStock;$('stockRows').onclick=e=>{if(e.target.dataset.save!==undefined)saveOH(Number(e.target.dataset.save));if(e.target.dataset.del!==undefined)saveOH(Number(e.target.dataset.del),true)};$('cameraBtn').onclick=()=>$('cameraInput').click();$('galleryBtn').onclick=()=>$('galleryInput').click();$('cameraInput').onchange=e=>readFile(e.target.files[0]);$('galleryInput').onchange=e=>readFile(e.target.files[0]);$('reportForm').onsubmit=e=>{e.preventDefault();postReport('REPORT')};$('safeBtn').onclick=()=>{if(confirm('Catat bahwa tidak ada komplain/barang ketinggalan pada tanggal ini?'))postReport('AMAN')};$('clearForm').onclick=resetForm;$('stockDate').value=today();$('reportDate').value=today();loadStock();
+document.querySelectorAll('.nav button').forEach(b=>b.addEventListener('click',()=>switchPage(b.dataset.page)));$('loadStock').onclick=loadStock;$('reloadStock').onclick=loadStock;$('exportPdf').onclick=exportStockPdf;$('stockRows').onclick=e=>{if(e.target.dataset.save!==undefined)saveOH(Number(e.target.dataset.save));if(e.target.dataset.del!==undefined)saveOH(Number(e.target.dataset.del),true)};$('cameraBtn').onclick=()=>$('cameraInput').click();$('galleryBtn').onclick=()=>$('galleryInput').click();$('cameraInput').onchange=e=>readFile(e.target.files[0]);$('galleryInput').onchange=e=>readFile(e.target.files[0]);$('reportForm').onsubmit=e=>{e.preventDefault();postReport('REPORT')};$('safeBtn').onclick=()=>{if(confirm('Catat bahwa tidak ada komplain/barang ketinggalan pada tanggal ini?'))postReport('AMAN')};$('clearForm').onclick=resetForm;$('stockDate').value=today();$('reportDate').value=today();loadStock();
 </script></body></html>
